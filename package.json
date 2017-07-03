@@ -1,0 +1,19 @@
+{
+  "name": "naive-bayes",
+  "version": "1.0.0",
+  "description": "TDD example",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "deep-equal": "^1.0.1",
+    "eslint": "^3.8.1",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.1.2",
+    "wish": "^0.1.2"
+  },
+  "dependencies": {}
+}
