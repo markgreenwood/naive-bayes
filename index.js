@@ -50,16 +50,16 @@ function setLabelProbabilities() {
 }
 
 function setChordCountsInLabels() {
-  songs.forEach(function(i) {
-    if (chordCountsInLabels[i[0]] === undefined) {
-      chordCountsInLabels[i[0]] = {};
+  songs.forEach(function(difficulty) {
+    if (chordCountsInLabels[difficulty[0]] === undefined) {
+      chordCountsInLabels[difficulty[0]] = {};
     }
-    i[1].forEach(function(j) {
-      if (chordCountsInLabels[i[0]][j] > 0) {
-        chordCountsInLabels[i[0]][j] = chordCountsInLabels[i[0]][j] + 1;
+    difficulty[1].forEach(function(chord) {
+      if (chordCountsInLabels[difficulty[0]][chord] > 0) {
+        chordCountsInLabels[difficulty[0]][chord] = chordCountsInLabels[difficulty[0]][chord] + 1;
       }
       else {
-        chordCountsInLabels[i[0]][j] = 1;
+        chordCountsInLabels[difficulty[0]][chord] = 1;
       }
     });
   });
