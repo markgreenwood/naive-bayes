@@ -22,9 +22,10 @@ var chordCountsInLabels = {};
 var probabilityOfChordsInLabels = {};
 
 function train(chords, label) {
+  var index;
   songs.push([label, chords]);
   labels.push(label);
-  for (var index = 0; index < chords.length; index++) {
+  for (index = 0; index < chords.length; index++) {
     if (!allChords.includes(chords[index])) {
       allChords.push(chords[index]);
     }
@@ -85,8 +86,8 @@ setProbabilityOfChordsInLabels();
 
 function classify(chords) {
   var smoothing = 1.01;
-  console.log(labelProbabilities);
   var classified = {};
+  console.log(labelProbabilities);
   Object.keys(labelProbabilities).forEach(function(difficulty) {
     var first = labelProbabilities[difficulty] + smoothing;
     chords.forEach(function(chord) {
