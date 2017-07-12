@@ -4,7 +4,7 @@
   "description": "TDD example",
   "main": "naive-bayes.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha naive-bayes.js"
   },
   "author": "",
   "license": "ISC",
@@ -12,7 +12,7 @@
     "deep-equal": "^1.0.1",
     "eslint": "^3.8.1",
     "istanbul": "^0.4.5",
-    "mocha": "^3.1.2",
+    "mocha": "^3.4.2",
     "wish": "^0.1.2"
   },
   "dependencies": {}
