@@ -2,7 +2,7 @@
   "name": "naive-bayes",
   "version": "1.0.0",
   "description": "TDD example",
-  "main": "index.js",
+  "main": "naive-bayes.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
