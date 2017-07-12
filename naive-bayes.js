@@ -92,7 +92,7 @@ setProbabilityOfChordsInLabels();
 
 function classify(chords) {
   var smoothing = 1.01;
-  var classified = {};
+  var classified = new Map();
   console.log(labelProbabilities);
   Object.keys(labelProbabilities).forEach(function(difficulty) {
     var first = labelProbabilities[difficulty] + smoothing;
@@ -102,7 +102,7 @@ function classify(chords) {
         first = first * (probabilityOfChordInLabel + smoothing);
       }
     });
-    classified[difficulty] = first;
+    classified.set(difficulty, first);
   });
   console.log(classified);
 }
