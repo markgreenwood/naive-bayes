@@ -3,8 +3,6 @@ function fileName() {
   return theError.stack.split('\n')[1].split('/').pop().split(':')[0];
 }
 
-console.log(`Welcome to ${fileName()}!`);
-
 var easy = 'easy';
 var medium = 'medium';
 var hard = 'hard';
@@ -104,16 +102,28 @@ function classify(chords) {
     });
     classified.set(difficulty, first);
   });
-  console.log(classified);
+  return classified;
 }
 
-classify(['d', 'g', 'e', 'dm']);
-classify(['f#m7', 'a', 'dadd9', 'dmaj7', 'bm', 'bm7', 'd', 'f#m']);
-
-var wish = require('wish');
+var assert = require('assert');
 
 describe('the file', () => {
-  it('works', () => {
-    wish(true);
+  it('sets welcome message', () => {
+    console.log(`Welcome to ${fileName()}!`);
+    assert(welcomeMessage() === 'Welcome to naive-bayes.js');
+  });
+
+  it('classifies first song', () => {
+    var classified = classify(['f#m7', 'a', 'dadd9', 'dmaj7', 'bm', 'bm7', 'd', 'f#m']);
+    assert(classified.get('easy') === 1.3433333333333333);
+    assert(classified.get('medium') === 1.5060259259259259);
+    assert(classified.get('hard') === 1.6884223991769547);
+  });
+
+  it('classifies second song', () => {
+    var classified = classify(['d', 'g', 'e', 'dm']);
+    assert(classified.get('easy') === 2.023094827160494);
+    assert(classified.get('medium') === 1.855758613168724);
+    assert(classified.get('hard') === 1.855758613168724);
   });
 });
