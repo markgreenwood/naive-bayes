@@ -3,25 +3,31 @@ function fileName() {
   return theError.stack.split('\n')[1].split('/').pop().split(':')[0];
 }
 
+function welcomeMessage() {
+  return `Welcome to ${fileName()}!`;
+}
+
 var easy = 'easy';
 var medium = 'medium';
 var hard = 'hard';
 
 // songs
-imagine = ['c', 'cmaj7', 'f', 'am', 'dm', 'g', 'e7'];
-somewhereOverTheRainbow = ['c', 'em', 'f', 'g', 'am'];
-tooManyCooks = ['c', 'g', 'f'];
-iWillFollowYouIntoTheDark = ['f', 'dm', 'bb', 'c', 'a', 'bbm'];
-babyOneMoreTime = ['cm', 'g', 'bb', 'eb', 'fm', 'ab'];
-creep = ['g', 'gsus4', 'b', 'bsus4', 'c', 'cmsus4', 'cm6'];
-paperBag = ['bm7', 'e', 'c', 'g',
-  'b7', 'f', 'em', 'a',
-  'cmaj7', 'em7', 'a7', 'f7',
-  'b'];
-toxic = ['cm', 'eb', 'g', 'cdim',
-  'eb7', 'd7', 'db7', 'ab',
-  'gmaj7'];
-bulletproof = ['d#m', 'g#', 'b', 'f#', 'g#m', 'c#'];
+function setSongs() {
+  imagine = ['c', 'cmaj7', 'f', 'am', 'dm', 'g', 'e7'];
+  somewhereOverTheRainbow = ['c', 'em', 'f', 'g', 'am'];
+  tooManyCooks = ['c', 'g', 'f'];
+  iWillFollowYouIntoTheDark = ['f', 'dm', 'bb', 'c', 'a', 'bbm'];
+  babyOneMoreTime = ['cm', 'g', 'bb', 'eb', 'fm', 'ab'];
+  creep = ['g', 'gsus4', 'b', 'bsus4', 'c', 'cmsus4', 'cm6'];
+  paperBag = ['bm7', 'e', 'c', 'g',
+    'b7', 'f', 'em', 'a',
+    'cmaj7', 'em7', 'a7', 'f7',
+    'b'];
+  toxic = ['cm', 'eb', 'g', 'cdim',
+    'eb7', 'd7', 'db7', 'ab',
+    'gmaj7'];
+  bulletproof = ['d#m', 'g#', 'b', 'f#', 'g#m', 'c#'];
+}
 
 var songs = [];
 var allChords = new Set();
@@ -74,24 +80,29 @@ function setProbabilityOfChordsInLabels() {
   });
 }
 
-train(imagine, easy);
-train(somewhereOverTheRainbow, easy);
-train(tooManyCooks, easy);
-train(iWillFollowYouIntoTheDark, medium);
-train(babyOneMoreTime, medium);
-train(creep, medium);
-train(paperBag, hard);
-train(toxic, hard);
-train(bulletproof, hard);
+function trainAll() {
+  setSongs();
+  train(imagine, easy);
+  train(somewhereOverTheRainbow, easy);
+  train(tooManyCooks, easy);
+  train(iWillFollowYouIntoTheDark, medium);
+  train(babyOneMoreTime, medium);
+  train(creep, medium);
+  train(paperBag, hard);
+  train(toxic, hard);
+  train(bulletproof, hard);
+  setLabelsAndProbabilities();
+}
 
-setLabelProbabilities();
-setChordCountsInLabels();
-setProbabilityOfChordsInLabels();
+function setLabelsAndProbabilities() {
+  setLabelProbabilities();
+  setChordCountsInLabels();
+  setProbabilityOfChordsInLabels();
+}
 
 function classify(chords) {
   var smoothing = 1.01;
   var classified = new Map();
-  console.log(labelProbabilities);
   labelProbabilities.forEach(function(_probabilities, difficulty) {
     var first = labelProbabilities.get(difficulty) + smoothing;
     chords.forEach(function(chord) {
@@ -108,9 +119,16 @@ function classify(chords) {
 var assert = require('assert');
 
 describe('the file', () => {
+  trainAll();
+
   it('sets welcome message', () => {
-    console.log(`Welcome to ${fileName()}!`);
-    assert(welcomeMessage() === 'Welcome to naive-bayes.js');
+    assert(welcomeMessage() === 'Welcome to naive-bayes.js!');
+  });
+
+  it('label probabilities', () => {
+    assert(labelProbabilities.get('easy') === 0.3333333333333333);
+    assert(labelProbabilities.get('medium') === 0.3333333333333333);
+    assert(labelProbabilities.get('hard') === 0.3333333333333333);
   });
 
   it('classifies first song', () => {
